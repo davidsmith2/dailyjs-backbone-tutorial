@@ -1,13 +1,11 @@
-define(['gapi', 'views/app', 'views/auth'], function(ApiManager, AppView, AuthView) {
+define(['gapi', 'views/app'], function(ApiManager, AppView) {
 	var App = function() {
 		this.views.app = new AppView();
+		this.views.app.initialize(this);
 		this.views.app.render();
 
-		this.views.auth = new AuthView();
-		this.views.auth.initialize(this);
-		this.views.auth.render();
-
 		this.connectGapi();
+
 	};
 
 	App.prototype = {
