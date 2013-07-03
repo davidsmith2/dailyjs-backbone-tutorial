@@ -68,7 +68,7 @@ define(['config'], function(config) {
 			}
 		}
 
-		this.logIn = function() {
+		this.signIn = function() {
 			var credentials = {
 				client_id: config.clientId,
 				scope: config.scopes,
@@ -77,7 +77,7 @@ define(['config'], function(config) {
 			gapi.auth.authorize(credentials, handleAuthResult);
 		};
 
-		this.logOut = function() {
+		this.signOut = function() {
 			var view, sessionParams;
 			view = app.views.app;
 			sessionParams = {
@@ -85,12 +85,12 @@ define(['config'], function(config) {
 				state: gapi.auth.getToken().state
 			};
 
-			gapi.auth.checkSessionState(sessionParams, function(sessionState) {
-				if (sessionState) {
+			gapi.auth.checkSessionState(sessionParams, function(okToSignOut) {
+				if (!okToSignOut) {
+					console.log("You must sign out of Google first");
+				} else {
 					console.log("You have successfully logged out");
 					view.toggleAuthState(view.logOutContainer, view.logInContainer);
-				} else {
-					console.log("You must sign out of Google first");
 				}
 			});
 		};

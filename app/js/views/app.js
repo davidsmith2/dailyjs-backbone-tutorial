@@ -7,12 +7,12 @@ define(['lib/text!templates/app.html'], function(template) {
 		className: 'container-fluid',
 		el: 'body',
 		template: _.template(template),
-		logInContainer: '#log-in-container',
-		logOutContainer: '#log-out-container',
+		logInContainer: '#sign-in-container',
+		logOutContainer: '#sign-out-container',
 
 		events: {
-			'click #log-in-button': 'logIn',
-			'click #log-out-button': 'logOut'
+			'click #sign-in-button': 'signIn',
+			'click #sign-out-button': 'signOut'
 		},
 
 		initialize: function(app) {
@@ -24,19 +24,19 @@ define(['lib/text!templates/app.html'], function(template) {
 			return this;
 		},
 
-		logIn: function() {
-			this.app.apiManager.logIn();
+		signIn: function() {
+			this.app.apiManager.signIn();
 			return false;
 		},
 
-		logOut: function() {
-			this.app.apiManager.logOut();
+		signOut: function(event) {
+			this.app.apiManager.signOut();
 			return false;
 		},
 
-		toggleAuthState: function(el2Hide, el2Show) {
-			$(el2Hide).hide();
-			$(el2Show).show();
+		toggleAuthState: function(elementToHide, elementToShow) {
+			$(elementToHide).hide();
+			$(elementToShow).show();
 		}
 	});
 

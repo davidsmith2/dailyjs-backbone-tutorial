@@ -5,7 +5,6 @@ define(['gapi', 'views/app'], function(ApiManager, AppView) {
 		this.views.app.render();
 
 		this.connectGapi();
-
 	};
 
 	App.prototype = {
