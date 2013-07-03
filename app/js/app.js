@@ -4,6 +4,7 @@ define(['gapi', 'views/app', 'views/auth'], function(ApiManager, AppView, AuthVi
 		this.views.app.render();
 
 		this.views.auth = new AuthView();
+		this.views.auth.initialize(this);
 		this.views.auth.render();
 
 		this.connectGapi();

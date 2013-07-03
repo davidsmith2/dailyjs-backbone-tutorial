@@ -4,7 +4,7 @@ define(['lib/text!templates/auth.html'], function(template) {
 		template: _.template(template),
 
 		events: {
-
+			'click #authorize-button': 'auth'
 		},
 
 		initialize: function(app) {
