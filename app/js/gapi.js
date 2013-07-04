@@ -59,6 +59,7 @@ define(['config'], function(config) {
 					setTimeout(checkAuth, authTimeout);
 				}
 				view.toggleAuthState(view.logInContainer, view.logOutContainer);
+				self.trigger('ready');
 			} else {
 				// not signed in
 				if (authResult && authResult.error) {
@@ -107,6 +108,8 @@ define(['config'], function(config) {
 			break;
 
 			case 'read':
+				var request = gapi.client.tasks[model.url].list(options.data);
+				Backbone.gapiRequest(request, method, model, options);
 			break;
 
 			case 'update':
@@ -115,6 +118,18 @@ define(['config'], function(config) {
 			case 'delete':
 			break;
 		}
+	};
+
+	Backbone.gapiRequest = function(request, method, model, options) {
+		var result;
+		request.execute(function(response) {
+			if (response.error) {
+				if (options.error) options.error(response);
+			} else if (options.success) {
+				result = response.items;
+				options.success(result, true, request);
+			}
+		});
 	};
 
 	return ApiManager;
