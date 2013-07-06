@@ -7,8 +7,8 @@ define(['lib/text!templates/app.html'], function(template) {
 		className: 'container-fluid',
 		el: 'body',
 		template: _.template(template),
-		logInContainer: '#sign-in-container',
-		logOutContainer: '#sign-out-container',
+		signInContainer: '#sign-in-container',
+		signOutContainer: '#sign-out-container',
 
 		events: {
 			'click #sign-in-button': 'signIn',

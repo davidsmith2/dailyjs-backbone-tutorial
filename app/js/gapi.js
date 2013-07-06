@@ -58,14 +58,14 @@ define(['config'], function(config) {
 					authTimeout = (authResult.expires_in - 5 * 60) * 1000;
 					setTimeout(checkAuth, authTimeout);
 				}
-				view.toggleAuthState(view.logInContainer, view.logOutContainer);
+				view.toggleAuthState(view.signInContainer, view.signOutContainer);
 				self.trigger('ready');
 			} else {
 				// not signed in
 				if (authResult && authResult.error) {
 					console.error('Unable to sign in:', authResult.error);
 				}
-				view.toggleAuthState(view.logOutContainer, view.logInContainer);
+				view.toggleAuthState(view.signOutContainer, view.signInContainer);
 			}
 		}
 
@@ -90,8 +90,8 @@ define(['config'], function(config) {
 				if (!okToSignOut) {
 					console.log("You must sign out of Google first");
 				} else {
-					console.log("You have successfully logged out");
-					view.toggleAuthState(view.logOutContainer, view.logInContainer);
+					console.log("You have successfully signed out");
+					view.toggleAuthState(view.signOutContainer, view.signInContainer);
 				}
 			});
 		};
@@ -101,6 +101,7 @@ define(['config'], function(config) {
 	};
 
 	Backbone.sync = function(method, model, options) {
+
 		options || (options = {});
 
 		switch (method) {
