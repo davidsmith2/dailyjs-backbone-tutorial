@@ -1,7 +1,7 @@
 define(['lib/text!templates/lists/menuitem.html'], function(template) {
     var ListMenuItemView = Backbone.View.extend({
-        tagName: 'li',
         className: 'list-menu-item',
+        tagName: 'li',
         template: _.template(template),
 
         events: {
@@ -22,8 +22,11 @@ define(['lib/text!templates/lists/menuitem.html'], function(template) {
 
         open: function() {
             var self = this;
+            console.log(self);
             return false;
-        }
+        },
+
+        remove: function() {}
 
     });
 

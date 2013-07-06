@@ -33,7 +33,6 @@ define([
 							userId: '@me'
 						},
 						success: function(response) {
-							console.log(response);
 							self.views.listMenu.render();
 						}
 					});
