@@ -27,12 +27,12 @@ define([
 				this.apiManager = new ApiManager(this);
 				this.apiManager.on('ready', function() {
 					self.collections.lists.fetch({
+						silent: true,
 						data: {
 							userId: '@me'
 						},
 						success: function(response) {
-							console.log(response);
-							//self.views.listMenu.render();
+							self.views.listMenu.render();
 						}
 					});
 				});

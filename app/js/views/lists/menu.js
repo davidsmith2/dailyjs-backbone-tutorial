@@ -10,7 +10,7 @@ define(['views/lists/menuitem'], function(ListMenuItemView) {
             this.collection.on('add', this.renderMenuItem, this);
         },
 
-        renderMenuItem: function(model) {
+        renderMenuItem: function(model, collection, options) {
             var item = new ListMenuItemView({ model: model });
             this.$el.append(item.render().el);
         },

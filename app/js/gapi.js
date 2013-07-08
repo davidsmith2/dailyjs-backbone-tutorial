@@ -11,13 +11,11 @@ define(['config'], function(config) {
 	ApiManager.prototype.loadGapi = function() {
 		var self = this;
 
-		// Don't load gapi if it's already present
 		if (typeof gapi !== 'undefined') {
 			return this.init();
 		}
 
 		require(['https://apis.google.com/js/client.js?onload=define'], function() {
-			// Poll until gapi is ready
 			function checkGapi() {
 				if (gapi && gapi.client) {
 					self.init();
