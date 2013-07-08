@@ -1,4 +1,4 @@
-define(['lib/text!templates/app.html'], function(template) {
+define(['lib/text!templates/app.html', 'views/lists/add'], function(template, AddListView) {
 	var app;
 
 	var AppView = Backbone.View.extend({
@@ -12,7 +12,8 @@ define(['lib/text!templates/app.html'], function(template) {
 
 		events: {
 			'click #sign-in-button': 'signIn',
-			'click #sign-out-button': 'signOut'
+			'click #sign-out-button': 'signOut',
+			'click #add-list-button': 'addList'
 		},
 
 		initialize: function(app) {
@@ -37,6 +38,17 @@ define(['lib/text!templates/app.html'], function(template) {
 		toggleAuthState: function(elementToHide, elementToShow) {
 			$(elementToHide).hide();
 			$(elementToShow).show();
+		},
+
+		addList: function() {
+			var list = new bTask.collections.lists.model({ title: ''}),
+				form = new AddListView({ model: list }),
+				self = this;
+
+			this.$el.find('#list-editor').html(form.render().el);
+			form.$el.find('input:first').focus();
+
+			return false;
 		}
 	});
 

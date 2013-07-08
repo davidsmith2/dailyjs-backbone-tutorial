@@ -1,34 +1,29 @@
 define(['views/lists/menuitem'], function(ListMenuItemView) {
     var ListMenuView = Backbone.View.extend({
-        className: 'nav nav-list lists-nav',
-        container: '.left-nav',
+        el: '.left-nav',
         tagName: 'ul',
+        className: 'nav nav-list lists-nav',
 
         events: {},
 
         initialize: function() {
-            this.collection.on('add', this.addListMenuItemView, this);
+            this.collection.on('add', this.renderMenuItem, this);
         },
 
-        addListMenuItemView: function(list) {
-            var listMenuItemView = new ListMenuItemView({ model: list });
-            listMenuItemView.render();
+        renderMenuItem: function(model) {
+            var item = new ListMenuItemView({ model: model });
+            this.$el.append(item.render().el);
         },
 
         render: function() {
             var $el = $(this.el),
-                self = this,
-                items;
-
+                self = this;
             this.collection.each(function(list) {
-                var item, sidebarItem;
-                item = new ListMenuItemView({ model: list });
-                $el.append(item.render().el).appendTo(self.container);
+                self.renderMenuItem(list);
             });
-
             return this;
+
         }
     });
-
     return ListMenuView;
 });

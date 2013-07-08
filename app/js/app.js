@@ -6,19 +6,17 @@ define([
 	], 
 
 	function(ApiManager, AppView, ListMenuView, TaskLists) {
-
 		var App = function() {
-
 			this.views.app = new AppView();
 			this.views.app.initialize(this);
 			this.views.app.render();
-
+/*
+			this.views.auth = new AuthView();
+			this.views.auth.render();
+*/
 			this.collections.lists = new TaskLists();
-
 			this.views.listMenu = new ListMenuView({ collection: this.collections.lists });
-
 			this.connectGapi();
-
 		};
 
 		App.prototype = {
@@ -33,7 +31,8 @@ define([
 							userId: '@me'
 						},
 						success: function(response) {
-							self.views.listMenu.render();
+							console.log(response);
+							//self.views.listMenu.render();
 						}
 					});
 				});
