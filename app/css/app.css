@@ -1,9 +1,10 @@
 div {
     margin-top:1em;
 }
-/*
+li.active {
+    font-weight:bold;
+}
 #sign-in-container,
 #signed-in-container { 
 	display: none;
 }
-*/

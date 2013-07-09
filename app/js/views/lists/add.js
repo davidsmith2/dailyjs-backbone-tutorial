@@ -6,8 +6,8 @@ define(['models/tasklist', 'views/lists/edit'], function(TaskList, EditListView)
             var self = this,
                 title = this.$el.find('input[name="title"]').val();
 
-            this.model.save({ title: title }, { success: function(model) {
-                bTask.collections.lists.add(model);
+            this.model.save({ title: title }, { success: function(response) {
+                bTask.collections.lists.add(response);
                 self.remove();
             }});
 

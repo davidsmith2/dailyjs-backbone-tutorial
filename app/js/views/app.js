@@ -1,4 +1,4 @@
-define(['lib/text!templates/app.html', 'views/lists/add'], function(template, AddListView) {
+define(['lib/text!templates/app.html', 'views/lists/add', 'views/lists/edit'], function(template, AddListView, EditListView) {
 	var app;
 
 	var AppView = Backbone.View.extend({
@@ -11,44 +11,29 @@ define(['lib/text!templates/app.html', 'views/lists/add'], function(template, Ad
 		signOutContainer: '#sign-out-container',
 
 		events: {
-			'click #sign-in-button': 'signIn',
-			'click #sign-out-button': 'signOut',
-			'click #add-list-button': 'addList'
+			'click #add-list-button': 'addList',
+			'click #edit-list-button': 'editList'
 		},
 
-		initialize: function(app) {
-			this.app = app;
-		},
+		initialize: function() {},
 
 		render: function() {
 			this.$el.html(this.template());
 			return this;
 		},
 
-		signIn: function() {
-			this.app.apiManager.signIn();
+		listForm: function(form) {
+			this.$el.find('#list-editor').html(form.render().el);
+			form.$el.find('input:first').focus();
 			return false;
-		},
-
-		signOut: function(event) {
-			this.app.apiManager.signOut();
-			return false;
-		},
-
-		toggleAuthState: function(elementToHide, elementToShow) {
-			$(elementToHide).hide();
-			$(elementToShow).show();
 		},
 
 		addList: function() {
-			var list = new bTask.collections.lists.model({ title: ''}),
-				form = new AddListView({ model: list }),
-				self = this;
+			return this.listForm(new AddListView({ model: new bTask.collections.lists.model({ title: ''}) }));
+		},
 
-			this.$el.find('#list-editor').html(form.render().el);
-			form.$el.find('input:first').focus();
-
-			return false;
+		editList: function() {
+			return this.listForm(new EditListView({ model: bTask.views.activeListMenuItem.model }));
 		}
 	});
 

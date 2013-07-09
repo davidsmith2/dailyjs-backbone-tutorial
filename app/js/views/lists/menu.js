@@ -1,7 +1,6 @@
 define(['views/lists/menuitem'], function(ListMenuItemView) {
     var ListMenuView = Backbone.View.extend({
-        el: '.left-nav',
-        tagName: 'ul',
+        el: '#list-menu',
         className: 'nav nav-list lists-nav',
 
         events: {},
@@ -13,6 +12,14 @@ define(['views/lists/menuitem'], function(ListMenuItemView) {
         renderMenuItem: function(model, collection, options) {
             var item = new ListMenuItemView({ model: model });
             this.$el.append(item.render().el);
+
+            if (!bTask.views.activeListMenuItem) {
+                bTask.views.activeListMenuItem = item;
+            }
+
+            if (model.get('id') === bTask.views.activeListMenuItem.model.get('id')) {
+                item.open();
+            }
         },
 
         render: function() {

@@ -8,7 +8,7 @@ define(['models/tasklist'], function(TaskList) {
         },
 
         initialize: function() {
-            //this.bind('add', this.onModelAdded, this);
+            this.bind('add', this.onModelAdded, this);
         },
 
         onModelAdded: function(model, collection, options) {}

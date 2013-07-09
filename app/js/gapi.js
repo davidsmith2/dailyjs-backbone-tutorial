@@ -48,50 +48,26 @@ define(['config'], function(config) {
 		}
 
 		function handleAuthResult(authResult) {
-			var authTimeout, view = app.views.app;
+			var authTimeout;
 
 			if (authResult && !authResult.error) {
-				// signed in
 				if (authResult.expires_in) {
 					authTimeout = (authResult.expires_in - 5 * 60) * 1000;
 					setTimeout(checkAuth, authTimeout);
 				}
-				view.toggleAuthState(view.signInContainer, view.signOutContainer);
+				app.views.auth.$el.hide();
+				$('#signed-in-container').show();
 				self.trigger('ready');
 			} else {
-				// not signed in
 				if (authResult && authResult.error) {
 					console.error('Unable to sign in:', authResult.error);
 				}
-				view.toggleAuthState(view.signOutContainer, view.signInContainer);
+				app.views.auth.$el.show();
 			}
 		}
 
-		this.signIn = function() {
-			var credentials = {
-				client_id: config.clientId,
-				scope: config.scopes,
-				immediate: false // popup if not signed in
-			}
-			gapi.auth.authorize(credentials, handleAuthResult);
-		};
-
-		this.signOut = function() {
-			var view, sessionParams;
-			view = app.views.app;
-			sessionParams = {
-				client_id: config.clientId,
-				state: gapi.auth.getToken().state
-			};
-
-			gapi.auth.checkSessionState(sessionParams, function(okToSignOut) {
-				if (!okToSignOut) {
-					console.log("You must sign out of Google first");
-				} else {
-					console.log("You have successfully signed out");
-					view.toggleAuthState(view.signOutContainer, view.signInContainer);
-				}
-			});
+		this.checkAuth = function() {
+			gapi.auth.authorize({ client_id: config.clientId, scope: config.scopes, immediate: false}, handleAuthResult);
 		};
 
 		handleClientLoad();
@@ -103,6 +79,12 @@ define(['config'], function(config) {
 		var request, requestContent = {};
 
 		options || (options = {});
+
+		if (model.url === 'tasks') {
+			requestContent.task = model.get('id');
+		} else {
+			requestContent.taskList = model.get('id');
+		}
 
 		switch (method) {
 			case 'create':
@@ -117,6 +99,9 @@ define(['config'], function(config) {
 			break;
 
 			case 'update':
+				requestContent['resource'] = model.toJSON();
+				request = gapi.client.tasks[model.url].update(requestContent);
+				Backbone.gapiRequest(request, method, model, options);
 			break;
 
 			case 'delete':
