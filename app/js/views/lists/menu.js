@@ -22,12 +22,6 @@ define(['views/lists/menuitem'], function(ListMenuItemView) {
             }
         },
 
-        removeMenuItem: function(model, collection, options) {
-            var id = model.get('id');
-            var item = $('li').attr(id);
-            console.log(item);
-        },
-
         render: function() {
             var $el = $(this.el),
                 self = this;

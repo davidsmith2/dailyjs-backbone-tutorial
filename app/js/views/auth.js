@@ -2,6 +2,7 @@ define(['lib/text!templates/auth.html'], function(template) {
 
     var AuthView = Backbone.View.extend({
 
+        // element to which template should be appended
         el: '#sign-in-container',
         template: _.template(template),
 

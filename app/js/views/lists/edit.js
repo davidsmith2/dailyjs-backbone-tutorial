@@ -18,6 +18,9 @@ define(['lib/text!templates/lists/form.html'], function(template) {
             var $el = $(this.el);
             $el.html(this.template(this.model.toJSON()));
 
+            // if the model doesn't have an id, 
+            // it can't have been created yet, 
+            // so this must be an addition
             if (!this.model.get('id')) {
                 this.$el.find('legend').html('Add List');
             }

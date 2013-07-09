@@ -10,7 +10,6 @@ define(['lib/text!templates/lists/menuitem.html'], function(template) {
 
         initialize: function() {
             this.model.on('change', this.render, this);
-            this.model.on('destroy', this.remove, this);
         },
 
         render: function() {
@@ -20,7 +19,7 @@ define(['lib/text!templates/lists/menuitem.html'], function(template) {
             return this;
         },
 
-        open: function(event) {
+        open: function() {
             if (bTask.views.activeListMenuItem) {
                 bTask.views.activeListMenuItem.$el.removeClass('active');
             }
@@ -29,10 +28,6 @@ define(['lib/text!templates/lists/menuitem.html'], function(template) {
             this.$el.addClass('active');
 
             return false;
-        },
-
-        remove: function() {
-            this.$el.remove();
         }
 
     });
