@@ -1,18 +1,22 @@
-define(['lib/text!templates/app.html', 'views/lists/add', 'views/lists/edit'], function(template, AddListView, EditListView) {
-	var app;
+define(
+[
+	'lib/text!templates/app.html', 
+	'views/lists/add', 
+	'views/lists/edit'
+],
 
+function(template, AddListView, EditListView) {
 	var AppView = Backbone.View.extend({
 		id: 'main',
 		tagName: 'div',
 		className: 'container-fluid',
 		el: 'body',
 		template: _.template(template),
-		signInContainer: '#sign-in-container',
-		signOutContainer: '#sign-out-container',
 
 		events: {
 			'click #add-list-button': 'addList',
-			'click #edit-list-button': 'editList'
+			'click #edit-list-button': 'editList',
+			'click #delete-list-button': 'deleteList'
 		},
 
 		initialize: function() {},
@@ -34,6 +38,13 @@ define(['lib/text!templates/app.html', 'views/lists/add', 'views/lists/edit'], f
 
 		editList: function() {
 			return this.listForm(new EditListView({ model: bTask.views.activeListMenuItem.model }));
+		},
+
+		deleteList: function() {
+			if (confirm('Are you sure you want to delete this list?')) {
+				bTask.views.activeListMenuItem.model.destroy();
+			}
+			return false;
 		}
 	});
 

@@ -27,11 +27,13 @@ define(['lib/text!templates/lists/menuitem.html'], function(template) {
 
             bTask.views.activeListMenuItem = this;
             this.$el.addClass('active');
-            
+
             return false;
         },
 
-        remove: function() {}
+        remove: function() {
+            this.$el.remove();
+        }
 
     });
 
